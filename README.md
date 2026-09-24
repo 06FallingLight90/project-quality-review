@@ -11,12 +11,12 @@
     └── project-quality-review/     # 技能本体
         ├── SKILL.md                # 三步工作流（项目画像 → 分维度审查 → 汇总报告）
         ├── references/             # 七个维度的审查清单
-        │   ├── architecture.md     # 架构设计（分层、边界、模式、抽象）
+        │   ├── architecture.md     # 架构设计（分层、边界、SOLID 组件级原则、模式、抽象）
         │   ├── requirements.md     # 需求实现度（功能/非功能声明 vs 实现证据）
         │   ├── quality-attributes.md  # 内外部质量指标、场景六要素、效用树
         │   ├── code-smells.md      # 代码坏味道与架构坏味道
         │   ├── structure.md        # 目录结构
-        │   ├── documentation.md    # 文档化（双向一致性）
+        │   ├── documentation.md    # 文档化（双向一致性、W5HH 完整性骨架）
         │   ├── metrics-evolution.md # 度量解读、架构腐蚀、重构策略
         │   └── evaluation.md       # ATAM/SAAM 轻量评估方法
         ├── assets/
