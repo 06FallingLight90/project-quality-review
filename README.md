@@ -14,7 +14,7 @@
         │   ├── architecture.md     # 架构设计（分层、边界、SOLID 组件级原则、模式、抽象）
         │   ├── requirements.md     # 需求实现度（功能/非功能声明 vs 实现证据）
         │   ├── quality-attributes.md  # 内外部质量指标、场景六要素、效用树
-        │   ├── code-smells.md      # 代码坏味道与架构坏味道
+        │   ├── code-smells.md      # 代码坏味道、架构坏味道与测试坏味道（技术债判据）
         │   ├── structure.md        # 目录结构
         │   ├── documentation.md    # 文档化（双向一致性、W5HH 完整性骨架）
         │   ├── metrics-evolution.md # 度量解读、架构腐蚀、重构策略
