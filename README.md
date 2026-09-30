@@ -9,7 +9,7 @@
 ├── README.md
 └── skills/
     └── project-quality-review/     # 技能本体
-        ├── SKILL.md                # 三步工作流（项目画像 → 分维度审查 → 汇总报告）
+        ├── SKILL.md                # 工作流（测试授权 → 项目画像 → 分维度审查 → 汇总报告）
         ├── references/             # 七个维度的审查清单
         │   ├── architecture.md     # 架构设计（分层、边界、SOLID 组件级原则、模式、抽象）
         │   ├── requirements.md     # 需求实现度（功能/非功能声明 vs 实现证据）
