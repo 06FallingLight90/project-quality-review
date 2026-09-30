@@ -45,3 +45,7 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.trae-cn\skills\project-qual
 - 检查目录结构或文档完整性
 
 不用于单个 diff / commit / PR 的审查（见 pr-review 类技能）。
+
+## 致谢
+
+测试坏味道判据（references/code-smells.md 第 11 节：seam 缝合点视角、耦合实现 / 同义反复反模式）借鉴自 [mattpocock/skills](https://github.com/mattpocock/skills)（MIT License）之 `tdd` 的思想并重新表达。
