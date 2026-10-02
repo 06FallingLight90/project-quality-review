@@ -11,7 +11,7 @@
     └── project-quality-review/     # 技能本体
         ├── SKILL.md                # 工作流（测试授权 → 项目画像 → 分维度审查 → 汇总报告）
         ├── references/             # 七个维度的审查清单
-        │   ├── architecture.md     # 架构设计（分层、边界、SOLID 组件级原则、模式、抽象）
+        │   ├── architecture.md     # 架构设计（分层、边界、SOLID 组件级原则、模式、抽象、接口契约）
         │   ├── requirements.md     # 需求实现度（功能/非功能声明 vs 实现证据）
         │   ├── quality-attributes.md  # 内外部质量指标、场景六要素、效用树
         │   ├── code-smells.md      # 代码坏味道、架构坏味道与测试坏味道（技术债判据）

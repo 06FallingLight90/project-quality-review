@@ -49,7 +49,7 @@ description: 从软件工程与架构视角对整个项目做质量体检，覆�
 
 | 维度 | 清单 |
 |------|------|
-| 架构设计（分层、边界、模式、抽象） | references/architecture.md |
+| 架构设计（分层、边界、模式、抽象、接口契约） | references/architecture.md |
 | 需求实现度（功能/非功能声明 vs 实现证据） | references/requirements.md |
 | 质量属性评估（内外部指标、场景、效用树） | references/quality-attributes.md |
 | 代码坏味道与技术债（含架构坏味） | references/code-smells.md |
