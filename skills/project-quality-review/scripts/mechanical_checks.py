@@ -7,6 +7,7 @@
 仅用标准库，结果输出到 stdout。检查项:
 - 源码文件分布
 - 超大文件（按行数）
+- 碎片化指标（过小文件占比与行数分布，仅作定位信号）
 - TODO/FIXME/HACK/XXX 统计
 - 根目录文档缺失
 - 深嵌套目录 / 过宽目录 / 空目录
@@ -35,6 +36,8 @@ WARN_LINES = 500    # 单文件行数警告阈值
 ERROR_LINES = 1000  # 单文件行数严重阈值
 MAX_DEPTH = 6       # 目录嵌套深度阈值
 MAX_WIDTH = 30      # 单目录直接源码文件数阈值
+TINY_LINES = 20     # 单文件行数过小阈值（碎片化信号）
+FRAG_RATIO = 0.30   # 过小文件占比阈值（碎片化信号）
 
 
 def walk(root):
@@ -56,6 +59,7 @@ def main():
     empty_dirs = []
     dir_src_count = {}
     all_dirs = []
+    file_lines = []  # (相对路径, 行数)
 
     for dirpath, dirnames, filenames in walk(root):
         rel_dir = os.path.relpath(dirpath, root)
@@ -77,6 +81,7 @@ def main():
             except OSError:
                 continue
             n = len(lines)
+            file_lines.append((os.path.relpath(path, root), n))
             if n >= WARN_LINES:
                 large_files.append({
                     "path": os.path.relpath(path, root),
@@ -111,6 +116,25 @@ def main():
     large_files.sort(key=lambda x: -x["lines"])
     todo_files.sort(key=lambda x: -x["count"])
 
+    # 碎片化指标：仅作定位信号，是否构成过度拆分需人工打开确认
+    fragmentation = None
+    if file_lines:
+        sizes = sorted(n for _, n in file_lines)
+        total = len(sizes)
+        median = sizes[total // 2] if total % 2 else (sizes[total // 2 - 1] + sizes[total // 2]) / 2
+        tiny = [(p, n) for p, n in file_lines if n < TINY_LINES]
+        ratio = len(tiny) / total
+        frag_flag = ratio > FRAG_RATIO
+        tiny.sort(key=lambda x: x[1])
+        fragmentation = {
+            "median_lines": median,
+            "tiny_files_count": len(tiny),
+            "tiny_files_ratio": round(ratio, 3),
+            "tiny_ratio_threshold": FRAG_RATIO,
+            "flag": frag_flag,
+            "smallest_files": [{"path": p, "lines": n} for p, n in tiny[:20]] if frag_flag else [],
+        }
+
     entries = os.listdir(root)
     lowered = {e.lower() for e in entries}
     docs = {
@@ -127,6 +151,7 @@ def main():
         "total_source_files": sum(ext_count.values()),
         "source_files_by_ext": dict(sorted(ext_count.items(), key=lambda x: -x[1])),
         "large_files": large_files[:20],
+        "fragmentation": fragmentation,
         "todos": {"total": total_todos, "top_files": todo_files[:10]},
         "deep_dirs": deep_dirs[:15],
         "wide_dirs": wide_dirs,
