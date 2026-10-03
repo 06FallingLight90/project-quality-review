@@ -1,8 +1,69 @@
 # project-quality-review
 
-从软件工程与架构视角对整个项目做质量体检的 Agent Skill：发现结构性问题并给出可落地的改进方案，输出 A/B/C/D 分级评级报告，不是逐行 code review。
+> 🩺 从软件工程与架构视角对整个项目做质量体检的 Agent Skill：发现结构性问题并给出可落地的改进方案，输出 A/B/C/D 分级评级报告，不是逐行 code review。
 
-## 仓库结构
+## ✨ 项目简介
+
+project-quality-review 是一个面向**整个项目**的质量体检技能。它以"有证据才报告"为原则，通过机械检查脚本 + 七个维度的审查清单，对项目做一次系统的工程健康诊断：
+
+- 📊 **可量化**：内置 Python 标准库脚本，零依赖输出文件规模、TODO 密度、目录深度/宽度、依赖环、扇入扇出等机械指标，为人工审查定位候选区。
+- 🧾 **重证据**：每条问题必须落到具体文件/模块并给出判定依据，不接受"应该偿还技术债"式空话；推断性结论显式标注"推断"并给出验证方式。
+- 🔤 **分级输出**：按 A/B/C/D 总体评级 + P0/P1/P2 问题严重度组织报告，配套体检报告模板，可直接作为迭代收敛门禁（如 ≥A 且核心需求无缺口才进入下一迭代）。
+- 🤝 **可协作**：支持接收调用方附带的风险登记表做交叉核对，与 project-build 类开发技能组成"事前预判 + 事后举证"回路。
+
+## 🔍 审查维度
+
+七个维度各对应一份独立审查清单，中大型项目可并行派发子代理分别审查后汇总。
+
+### 🏛️ 架构设计（architecture.md）
+
+分层与依赖方向、模块边界与耦合（依赖环、边界泄漏）、SOLID 组件级原则（OCP/LSP/DIP/ISP）、一致性与模式、抽象质量（泄漏/过早/缺失）、**接口契约质量**（契约范围界定、错误契约、参数返回约定、语义契约、兼容与演进）、扩展点与配置、数据流。
+
+### 📋 需求实现度（requirements.md）
+
+"项目声称要做的事，代码是否真的做了、做完了"——从需求声明出发逐条找实现证据，区分完整实现与空壳桩；界面/交互类声明核对三层证据链（组件实现 → 交互路径可达 → 状态呈现完整）；输出"声明 → 状态 → 证据 → 缺口"的实现度矩阵，并反向核对"实现了但没说"。
+
+### ⚖️ 质量属性（quality-attributes.md）
+
+内部质量（可维护性、可重用性、可移植性、可集成性、可测试性）与外部质量（性能、可用性、可靠性、安全性、运维易用性、**终端用户易用性**）分别评估；外部判断用六要素场景表述，构建质量效用树按 (重要性, 难度) 排序，识别无意识的权衡（P0 级风险信号）。
+
+### 🐞 代码坏味道与技术债（code-smells.md）
+
+上帝类/上帝模块、超长方法、重复代码、死代码、异常反模式、状态与副作用、命名与魔法值、注释补偿；架构坏味道（循环依赖、God Component、Ambiguous Interface、Dense Structure、Scattered Functionality、**过度拆分/碎片化**，含浅/深模块判定器与删除测试）；技术债按代码/设计/测试/文档四类盘点并给偿还优先级；测试坏味道以 seam 缝合点视角判定（耦合实现、同义反复、关键路径无覆盖、对外契约无防破坏用例）。
+
+### 📁 目录结构（structure.md）
+
+目录即架构（技术分层 vs 业务域聚合）、命名一致性、内聚与位置（垃圾抽屉识别）、深度与广度（过深/过宽/单链目录）、拆分过碎的定位信号、测试与配置位置统一、构建产物与 .gitignore。
+
+### 📚 文档化（documentation.md）
+
+README 质量（可执行快速开始、防陈旧机制）、W5HH 完整性骨架、实现与文档的双向一致性、重大技术选型有无理由记录（ADR）、文档债归类。
+
+### 📈 度量与演化（metrics-evolution.md）
+
+架构度量指标解读（规模/复杂度/耦合的趋势比绝对值更重要）、架构腐蚀识别、git 热点定界（变更频率加权审查注意力）、多版本度量对比、重构策略与目标结构输出。
+
+### 🧪 深度评估（evaluation.md，可选）
+
+对关键架构需要深度评估时，走 ATAM/SAAM 轻量流程：场景交互分析、敏感点/权衡点/风险点识别，输出非功能需求的达成度判断。
+
+## 📦 安装
+
+将技能目录添加到 agent 的技能列表即可。以 Trae 为例，用 junction 链接接入全局技能目录，编辑仓库文件即实时生效：
+
+```powershell
+# Windows（PowerShell）
+New-Item -ItemType Junction -Path "$env:USERPROFILE\.trae-cn\skills\project-quality-review" -Target "<本仓库路径>\skills\project-quality-review"
+```
+
+```bash
+# macOS / Linux（符号链接）
+ln -s <本仓库路径>/skills/project-quality-review ~/.trae-cn/skills/project-quality-review
+```
+
+其他 agent 平台：将 `skills/project-quality-review/` 目录复制或链接到平台的技能目录（包含 `SKILL.md` 的目录即为技能根），随平台技能加载机制生效即可。
+
+## 📂 仓库结构
 
 ```
 .
@@ -22,23 +83,11 @@
         ├── assets/
         │   └── report-template.md  # 体检报告模板
         └── scripts/
-            ├── mechanical_checks.py   # 超大文件、TODO、深嵌套目录
+            ├── mechanical_checks.py   # 超大文件、碎片化指标、TODO、深嵌套目录
             └── dependency_metrics.py  # 依赖环、扇入扇出（Python/JS-TS）
 ```
 
-## 审查维度
-
-架构设计、需求实现度、质量属性（性能/可用性/可维护性等内外部指标）、代码坏味道与技术债、目录结构、文档化、度量与演化。深度评估支持 ATAM/SAAM 轻量流程（质量效用树、敏感点/权衡点/风险决策）。
-
-## 安装到 Trae 全局技能
-
-以 junction 链接接入，实时同步本仓库改动：
-
-```powershell
-New-Item -ItemType Junction -Path "$env:USERPROFILE\.trae-cn\skills\project-quality-review" -Target "<本仓库路径>\skills\project-quality-review"
-```
-
-## 触发场景
+## 🎯 触发场景
 
 - 审查整个项目质量、架构评审、项目体检
 - 评估质量属性、需求实现度、盘点技术债
@@ -46,7 +95,7 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.trae-cn\skills\project-qual
 
 不用于单个 diff / commit / PR 的审查（见 pr-review 类技能）。
 
-## 致谢
+## 🙏 致谢
 
 以下内容借鉴自 [mattpocock/skills](https://github.com/mattpocock/skills)（MIT License）的思想并按本技能定位重新表达：
 
