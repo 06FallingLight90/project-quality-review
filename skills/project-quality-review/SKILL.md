@@ -34,7 +34,7 @@ description: 从软件工程与架构视角对整个项目做质量体检，覆�
 
    两者均输出 JSON。dependency_metrics 支持 Python 与 JS/TS 的 import 解析；其他语言提示"依赖图未覆盖"并降级为人工追依赖。
 4. 测试健康度采集：
-   - **静态层（无条件）**：由第 1 项读到的测试方式展开——统计测试文件数量、定位测试命令、检查 CI 配置是否执行测试。无测试、测试命令不存在、CI 从不跑测试，均直接作为测试债证据。
+   - **静态层（无条件）**：由第 1 项读到的测试方式展开——统计测试文件数量、定位测试命令、检查 CI 配置是否执行测试。无测试、测试命令不存在、CI 从不跑测试，均直接作为测试债证据。测试脚本本身的质量（好坏测试区分、断言与 mock 方式）按 references/code-smells.md 第 11 节判据核查，正反例见 references/tests.md。
    - **运行层（第零步已获授权时）**：执行测试命令，带超时防挂起，记录「命令 → 通过/失败/跳过计数 → 耗时」；不安装依赖、不修复环境，跑不起来的原因如实记录并作为测试债发现；失败用例只汇总计数与涉及模块，不逐个深挖原因（那是调试的职责）。
    - 结果与机械检查输出同为输入线索，须由维度代理结合代码确认后才可写成结论。
 5. 开始全面检查前，先通读项目已有的说明性文档（ARCHITECTURE、REQUIREMENTS、README、调用方附带的风险登记表等）作为评估输入线索：声明的需求与设计目标用于实现度和文档维度核对；风险登记表中预判的风险经代码核实已显形的，升级为问题报告条目。
@@ -52,7 +52,7 @@ description: 从软件工程与架构视角对整个项目做质量体检，覆�
 | 架构设计（分层、边界、模式、抽象、接口契约） | references/architecture.md |
 | 需求实现度（功能/非功能声明 vs 实现证据） | references/requirements.md |
 | 质量属性评估（内外部指标、场景、效用树） | references/quality-attributes.md |
-| 代码坏味道与技术债（含架构坏味） | references/code-smells.md |
+| 代码坏味道与技术债（含架构坏味） | references/code-smells.md（测试好坏正反例另见 references/tests.md） |
 | 目录结构 | references/structure.md |
 | 文档化 | references/documentation.md |
 | 度量与演化（指标解读、腐蚀、重构） | references/metrics-evolution.md |

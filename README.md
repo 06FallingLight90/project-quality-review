@@ -93,7 +93,8 @@ ln -s <本仓库路径>/skills/project-quality-review ~/.trae-cn/skills/project-
         │   ├── structure.md        # 目录结构
         │   ├── documentation.md    # 文档化（双向一致性、W5HH 完整性骨架）
         │   ├── metrics-evolution.md # 度量解读、架构腐蚀、重构策略
-        │   └── evaluation.md       # ATAM/SAAM 轻量评估方法
+        │   ├── evaluation.md       # ATAM/SAAM 轻量评估方法
+        │   └── tests.md            # 好坏测试正反例（收录自 mattpocock/skills 的 tdd 技能）
         ├── assets/
         │   └── report-template.md  # 体检报告模板
         └── scripts/                # 机械扫描脚本
@@ -113,5 +114,5 @@ ln -s <本仓库路径>/skills/project-quality-review ~/.trae-cn/skills/project-
 
 以下内容借鉴自 [mattpocock/skills](https://github.com/mattpocock/skills)（MIT License）的思想并按本技能定位重新表达：
 
-- **测试坏味道判据**（references/code-smells.md 第 11 节：seam 缝合点视角、耦合实现 / 同义反复反模式）← 其 `tdd`
+- **测试坏味道判据**（references/code-smells.md 第 11 节：seam 缝合点视角、耦合实现 / 同义反复反模式）← 其 `tdd`；references/tests.md 整体收录自其 `tdd` 技能的 tests.md（MIT License），补充 WHAT/HOW 命名信号等红旗判据
 - **git 热点定界扫描**（变更频率加权审查注意力）、**浅/深模块判定器**（接口-实现复杂度对比、删除测试）、**ADR 不可复活约束**（与既有决策冲突的发现须可举证才提出）← 其 `improve-codebase-architecture`
